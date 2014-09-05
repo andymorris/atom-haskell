@@ -7,8 +7,8 @@ import Foreign.C
 adder :: Int -> Int
 adder x = x + 3
 
---foreign export ccall adder_export :: CString -> IO CString
---adder_export = export . returnId2 $ adder
+-- foreign export ccall adder_export :: CString -> IO CString
+-- adder_export x = do
 
 
 concatter :: String -> String
