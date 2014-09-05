@@ -1,0 +1,1 @@
+HaskellFFI.app/Contents/Resources/app
