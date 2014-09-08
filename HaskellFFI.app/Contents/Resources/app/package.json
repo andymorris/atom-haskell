@@ -1,5 +1,9 @@
 {
   "name": "HaskellFFIApp",
   "version": "0.1.0",
-  "main": "main.js"
+  "main": "main.js",
+  "dependencies": {
+    "ffi": "git://github.com/avatar5d/node-ffi.git#01f3a68dcbe81bf0dc53ca20b73f2fa9cdb35e41",
+    "ref": "*"
+  }
 }
