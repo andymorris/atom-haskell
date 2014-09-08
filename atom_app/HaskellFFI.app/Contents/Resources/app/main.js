@@ -10,35 +10,10 @@ require('crash-reporter').start();
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
 
-
-
-
-var ref = require("ref");
-var ffi = require("ffi");
-
-var stringPtr = ref.refType(ref.types.CString);
-var lib = ffi.Library(__dirname + "/libHShaskell-ffi-0.1.0.0-ghc7.8.3", {
-  hs_init: ["void", ["int", "string"]],
-  hs_exit: ["void", []],
-  concatter_export: ["string", ["string"]]
-});
-lib.hs_init(0, ""); // actually pass stuff?
-
-console.log(lib.concatter_export("works"));
-
-
-
-
-
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin')
     app.quit();
-});
-
-// Exit the haskell runtime before quitting
-app.on("will-quit", function(e) {
-  lib.hs_exit();
 });
 
 // This method will be called when atom-shell has done everything

@@ -1,0 +1,3 @@
+cd hs && cabal build
+cd .. && cp hs/dist/build/libHShaskell-ffi-0.1.0.0-ghc7.8.3.dylib atom_app/app
+open atom_app/HaskellFFI.app

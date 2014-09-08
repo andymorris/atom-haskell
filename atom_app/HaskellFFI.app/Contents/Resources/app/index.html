@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+    <script src="jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script>var $ = jQuery = module.exports;</script>
+  </head>
+  <body>
+    <script>
+      var lib;
+      try {
+        var ref = require("ref");
+        var ffi = require("ffi");
+        var stringPtr = ref.refType(ref.types.CString);
+        lib = ffi.Library(__dirname + "/libHShaskell-ffi-0.1.0.0-ghc7.8.3", {
+          hs_init: ["void", ["int", "string"]],
+          hs_exit: ["void", []],
+          concatter_export: ["string", ["string"]]
+        });
+        lib.hs_init(0, ""); // actually pass stuff?
+        //alert(lib.concatter_export("works"));
+      } catch (e) {
+        console.log(e);
+      }
+
+      $(function() {
+        $("#ffi-result").text(lib.concatter_export("works"));
+      });
+
+      window.onclose = function() {
+        if (lib) lib.hs_exit();
+      };
+    </script>
+    <h1>Hello World!</h1>
+    <p>node.js <script>document.write(process.version)</script></p>
+    <p>atom-shell <script>document.write(process.versions['atom-shell'])</script></p>
+    <p>haskell-ffi <span id="ffi-result"></span></p>
+  </body>
+</html>
