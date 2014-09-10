@@ -15,7 +15,9 @@
         lib = ffi.Library(__dirname + "/libHShaskell-ffi-0.1.0.0-ghc7.8.3", {
           hs_init: ["void", ["int", "string"]],
           hs_exit: ["void", []],
-          concatter_export: ["string", ["string"]]
+          concatter_export: ["string", ["string"]],
+          adder_export: ["string", ["string"]],
+          many_adder_export: ["string", ["string"]]
         });
         lib.hs_init(0, ""); // actually pass stuff?
         //alert(lib.concatter_export("works"));
@@ -24,7 +26,19 @@
       }
 
       $(function() {
-        $("#ffi-result").text(lib.concatter_export("works"));
+        $("#concatter-result").text(lib.concatter_export("works"));
+
+        var i = {a: 1, b: 2, c: null};
+        var str = lib.adder_export(JSON.stringify(i));
+        var o = JSON.parse(str);
+        console.log(o);
+        $("#adder-result").text(str);
+
+        i = {os: [{a: 1, b: 2, c: null}, {a: 5, b: 6, c: null}]}
+        str = lib.many_adder_export(JSON.stringify(i));
+        o = JSON.parse(str);
+        console.log(o);
+        $("#many-result").text(str);
       });
 
       window.onclose = function() {
@@ -34,6 +48,8 @@
     <h1>Hello World!</h1>
     <p>node.js <script>document.write(process.version)</script></p>
     <p>atom-shell <script>document.write(process.versions['atom-shell'])</script></p>
-    <p>haskell-ffi <span id="ffi-result"></span></p>
+    <p>concatter <span id="concatter-result"></span></p>
+    <p>adder <span id="adder-result"></span></p>
+    <p>many_adder <span id="many-result"></span></p>
   </body>
 </html>
